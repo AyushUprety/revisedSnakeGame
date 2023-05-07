@@ -5,6 +5,10 @@ const centerY2 = 300;
 const radius = 3;
 const startAngle = 0;
 const endAngle = 2 * Math.PI;
+const xSpeed = 0;
+const ySpeed = 0;
+const xDirection = 0;
+const yDirection = 0;
 
 const Canvas = document.getElementById("Canvas");
 const canva = Canvas.getContext("2d"); // getContext simply provides interface to interact with Canva
@@ -12,6 +16,7 @@ const canva = Canvas.getContext("2d"); // getContext simply provides interface t
 const startGame = function () {
   drawSnake();
   drawFood();
+  moveSnake();
   setInterval(startGame, 1000 / 7); // I want to rerender the screen 7 times a second.
 };
 
@@ -31,6 +36,27 @@ const drawFood = function () {
   canva.stroke();
   canva.fill();
 };
-const moveSnake = function () {};
+const moveSnake = function () {
+  if (event.keycode == 38) {
+    if (yDirection == 1) return;
+    yDirection = -1;
+    xDirection = 0;
+  }
+  if (event.keycode == 40) {
+    if (yDirection == -1) return;
+    yDirection = 1;
+    xDirection = 0;
+  }
+  if (event.keycode == 37) {
+    if (xDirection == 1) return;
+    yDirection = 0;
+    xDirection = -1;
+  }
+  if (event.keycode == 38) {
+    if (yDirection == 1) return;
+    yDirection = 0;
+    xDirection = 1;
+  }
+};
 
 startGame();
