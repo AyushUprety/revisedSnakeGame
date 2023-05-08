@@ -9,14 +9,16 @@ let xSpeed = 0;
 let ySpeed = 0;
 let xDirection = 0;
 let yDirection = 0;
-
+let snakeCoordinates = []; //contains coordinate for all the circle of snakes
 const Canvas = document.getElementById("Canvas");
 const canva = Canvas.getContext("2d"); // getContext simply provides interface to interact with Canva
 
 const startGame = function () {
+  console.log(snakeCoordinates);
   drawSnake();
   drawFood();
   moveSnake();
+  appendFood();
   setInterval(startGame, 1000 / 7); // I want to rerender the screen 7 times a second.
 };
 
@@ -72,6 +74,16 @@ const moveSnake = function (event) {
 };
 document.addEventListener("keydown", moveSnake);
 
-const changePositions = function () {};
+const appendFood = function () {
+  // wrote a logic to append food in snake as snake eats the food
+  if (centerX1 == centerX2 && centerY1 == centerY2) {
+    snakeCoordinates.push([
+      { centerX1, centerY1 },
+      { centerX2, centerY2 },
+    ]);
+    centerX2 = Math.floor(Math.random() * 800);
+    centerY2 = Math.floor(Math.random() * 500);
+  }
+};
 
 startGame();
