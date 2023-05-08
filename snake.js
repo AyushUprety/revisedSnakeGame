@@ -23,7 +23,6 @@ const startGame = function () {
 const drawSnake = function () {
   // This function will create the shape of the snake. Here we have made head of snake circular
   canva.clearRect(0, 0, Canvas.width, Canvas.height);
-
   canva.beginPath();
   canva.fillStyle = "green";
   canva.arc(centerX1, centerY1, radius, startAngle, endAngle);
@@ -40,28 +39,35 @@ const drawFood = function () {
 };
 
 const moveSnake = function (event) {
+  // move the snake in response to various key pressed
   console.log(event);
   if (event?.keyCode == 38) {
+    // up arrow
     if (yDirection == 1) return;
     yDirection = -1;
+    centerY1 -= 1;
     xDirection = 0;
-    centerX1 += 1;
-    centerY1 += 1;
   }
   if (event?.keyCode == 40) {
+    //down arrow
     if (yDirection == -1) return;
     yDirection = 1;
+    centerY1 += 1;
     xDirection = 0;
   }
   if (event?.keyCode == 37) {
+    //left arrow
     if (xDirection == 1) return;
-    yDirection = 0;
     xDirection = -1;
+    centerX1 -= 1;
+    yDirection = 0;
   }
   if (event?.keyCode == 39) {
-    if (yDirection == 1) return;
-    yDirection = 0;
+    //right arrow
+    if (xDirection == -1) return;
     xDirection = 1;
+    centerX1 += 1;
+    yDirection = 0;
   }
 };
 document.addEventListener("keydown", moveSnake);
