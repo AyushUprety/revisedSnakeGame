@@ -1,14 +1,14 @@
-const centerX1 = 50;
-const centerY1 = 50;
-const centerX2 = 200;
-const centerY2 = 300;
+let centerX1 = 50;
+let centerY1 = 50;
+let centerX2 = 200;
+let centerY2 = 300;
 const radius = 3;
 const startAngle = 0;
 const endAngle = 2 * Math.PI;
-const xSpeed = 0;
-const ySpeed = 0;
-const xDirection = 0;
-const yDirection = 0;
+let xSpeed = 0;
+let ySpeed = 0;
+let xDirection = 0;
+let yDirection = 0;
 
 const Canvas = document.getElementById("Canvas");
 const canva = Canvas.getContext("2d"); // getContext simply provides interface to interact with Canva
@@ -22,8 +22,10 @@ const startGame = function () {
 
 const drawSnake = function () {
   // This function will create the shape of the snake. Here we have made head of snake circular
-  canva.fillStyle = "green";
+  canva.clearRect(0, 0, Canvas.width, Canvas.height);
+
   canva.beginPath();
+  canva.fillStyle = "green";
   canva.arc(centerX1, centerY1, radius, startAngle, endAngle);
   canva.stroke();
   canva.fill();
@@ -36,27 +38,34 @@ const drawFood = function () {
   canva.stroke();
   canva.fill();
 };
-const moveSnake = function () {
-  if (event.keycode == 38) {
+
+const moveSnake = function (event) {
+  console.log(event);
+  if (event?.keyCode == 38) {
     if (yDirection == 1) return;
     yDirection = -1;
     xDirection = 0;
+    centerX1 += 1;
+    centerY1 += 1;
   }
-  if (event.keycode == 40) {
+  if (event?.keyCode == 40) {
     if (yDirection == -1) return;
     yDirection = 1;
     xDirection = 0;
   }
-  if (event.keycode == 37) {
+  if (event?.keyCode == 37) {
     if (xDirection == 1) return;
     yDirection = 0;
     xDirection = -1;
   }
-  if (event.keycode == 38) {
+  if (event?.keyCode == 39) {
     if (yDirection == 1) return;
     yDirection = 0;
     xDirection = 1;
   }
 };
+document.addEventListener("keydown", moveSnake);
+
+const changePositions = function () {};
 
 startGame();
